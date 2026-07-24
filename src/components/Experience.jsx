@@ -8,6 +8,9 @@ export default function Experience() {
         <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
           Experiencia práctica
         </h2>
+        {experience.type && (
+          <p className="mt-1 text-sm text-zinc-400">{experience.type}</p>
+        )}
 
         <article className="mt-10 rounded-xl border border-zinc-800 p-6 sm:p-8">
           <div className="flex items-start gap-4">

@@ -19,7 +19,7 @@ export const site = {
   whatsappHref: 'https://wa.me/595981964184',
   location: 'Asunción, Paraguay',
   github: 'https://github.com/GustavoAdolfoBritez',
-  linkedin: 'https://www.linkedin.com/in/gustavo-britez-5587792b0',
+  linkedin: 'https://www.linkedin.com/in/gustavo-britez',
   cvPath: '/cv-gustavo-adolfo-britez.pdf',
   formspreeEndpoint:
     import.meta.env.VITE_FORMSPREE_ENDPOINT ?? 'https://formspree.io/f/YOUR_FORM_ID',
@@ -111,6 +111,7 @@ export const starProject = {
 }
 
 export const experience = {
+  type: 'Pasantía',
   company: 'Enterprise Solutions',
   role: 'Desarrollador Front-End',
   period: 'Oct — Dic 2025 · 340 hs',
