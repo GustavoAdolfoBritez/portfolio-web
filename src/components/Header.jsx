@@ -5,8 +5,6 @@ import {
   Home,
   Layers,
   Mail,
-  Menu,
-  X,
 } from 'lucide-react'
 
 const links = [
@@ -84,8 +82,26 @@ function OdysseyNavLink({ href, label, icon: Icon, isActive, onClick, className 
   )
 }
 
+function IconNavLink({ href, label, icon: Icon, isActive, onClick }) {
+  return (
+    <a
+      href={href}
+      onClick={(e) => onClick(e, href)}
+      aria-label={label}
+      title={label}
+      aria-current={isActive ? 'page' : undefined}
+      className={`inline-flex items-center justify-center rounded-full p-2.5 transition-colors duration-200 ${
+        isActive
+          ? 'bg-zinc-800 text-white'
+          : 'text-zinc-500 hover:text-zinc-200'
+      }`}
+    >
+      <Icon size={18} strokeWidth={1.75} aria-hidden />
+    </a>
+  )
+}
+
 export default function Header() {
-  const [open, setOpen] = useState(false)
   const [activeSection, setActiveSection] = useState(links[0].href)
   const isNavigatingRef = useRef(false)
   const navigationTimerRef = useRef(null)
@@ -124,7 +140,6 @@ export default function Header() {
   const handleNavClick = (e, href) => {
     e.preventDefault()
     setActiveSection(href)
-    setOpen(false)
 
     isNavigatingRef.current = true
     if (navigationTimerRef.current) {
@@ -154,36 +169,18 @@ export default function Header() {
         ))}
       </nav>
 
-      <div className="relative md:hidden">
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={open}
-          className="rounded-full border border-zinc-800/90 bg-zinc-950 p-2.5 text-zinc-400 transition-colors hover:text-zinc-200"
-        >
-          {open ? <X size={18} strokeWidth={1.75} /> : <Menu size={18} strokeWidth={1.75} />}
-        </button>
-
-        {open && (
-          <nav className="absolute left-4 right-4 top-[calc(100%-0.25rem)] mt-2 rounded-2xl border border-zinc-800/90 bg-zinc-950 p-2 shadow-xl">
-            <ul className="flex flex-col gap-0.5">
-              {links.map((link) => (
-                <li key={link.href}>
-                  <OdysseyNavLink
-                    href={link.href}
-                    label={link.label}
-                    icon={link.icon}
-                    isActive={activeSection === link.href}
-                    onClick={handleNavClick}
-                    className="w-full justify-center"
-                  />
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-      </div>
+      <nav className="flex items-center gap-0.5 rounded-full border border-zinc-800/90 bg-zinc-950 p-1 md:hidden">
+        {links.map((link) => (
+          <IconNavLink
+            key={link.href}
+            href={link.href}
+            label={link.label}
+            icon={link.icon}
+            isActive={activeSection === link.href}
+            onClick={handleNavClick}
+          />
+        ))}
+      </nav>
     </header>
   )
 }
