@@ -3,10 +3,15 @@
  * https://21st.dev/@olovajs/components/orbiting-skills
  */
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Code2 } from 'lucide-react'
 import { orbitingSkills } from '../data/site'
 import { cn } from '../lib/utils'
+
+// Radios diseñados para un contenedor de 480px; se escalan según el ancho real
+// del contenedor para que las órbitas nunca se salgan del viewport en mobile.
+const BASE_SIZE = 480
+const RADIUS_RATIOS = { outer: 168 / BASE_SIZE, middle: 118 / BASE_SIZE, inner: 72 / BASE_SIZE }
 
 function skillIconUrl(slug, color) {
   return `https://cdn.simpleicons.org/${slug}/${color}`
@@ -96,7 +101,28 @@ function OrbitLayer({ skills, radius, duration, reverse, glow, paused, onIconEnt
 
 export default function OrbitingSkills() {
   const hoverCountRef = useRef(0)
+  const containerRef = useRef(null)
   const [paused, setPaused] = useState(false)
+  const [containerSize, setContainerSize] = useState(BASE_SIZE)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const updateSize = (width) => {
+      if (width > 0) setContainerSize(width)
+    }
+
+    updateSize(el.getBoundingClientRect().width)
+
+    const observer = new ResizeObserver((entries) => {
+      const width = entries[0]?.contentRect?.width
+      if (width) updateSize(width)
+    })
+    observer.observe(el)
+
+    return () => observer.disconnect()
+  }, [])
 
   function handleIconEnter() {
     hoverCountRef.current += 1
@@ -111,10 +137,13 @@ export default function OrbitingSkills() {
   }
 
   return (
-    <div className="relative mx-auto flex aspect-square w-full max-w-[min(100%,420px)] items-center justify-center sm:max-w-[480px]">
+    <div
+      ref={containerRef}
+      className="relative mx-auto flex aspect-square w-full max-w-[min(100%,420px)] items-center justify-center overflow-hidden sm:max-w-[480px]"
+    >
       <OrbitLayer
         skills={orbitingSkills.outer}
-        radius={168}
+        radius={containerSize * RADIUS_RATIOS.outer}
         duration={48}
         reverse
         glow="purple"
@@ -124,7 +153,7 @@ export default function OrbitingSkills() {
       />
       <OrbitLayer
         skills={orbitingSkills.middle}
-        radius={118}
+        radius={containerSize * RADIUS_RATIOS.middle}
         duration={36}
         glow="violet"
         paused={paused}
@@ -133,7 +162,7 @@ export default function OrbitingSkills() {
       />
       <OrbitLayer
         skills={orbitingSkills.inner}
-        radius={72}
+        radius={containerSize * RADIUS_RATIOS.inner}
         duration={28}
         reverse
         glow="cyan"

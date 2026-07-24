@@ -1,4 +1,4 @@
-import { ArrowDown, Code2, Download, Link2 } from 'lucide-react'
+import { ArrowDown, Download } from 'lucide-react'
 import TypewriterRole from './TypewriterRole'
 import { site } from '../data/site'
 
@@ -64,27 +64,6 @@ export default function Hero() {
           >
             <Download size={16} />
             Descargar CV (PDF)
-          </a>
-        </div>
-
-        <div className="mt-6 flex items-center gap-4">
-          <a
-            href={site.github}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub"
-            className="text-zinc-400 transition-colors hover:text-zinc-100"
-          >
-            <Code2 size={18} />
-          </a>
-          <a
-            href={site.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn"
-            className="text-zinc-400 transition-colors hover:text-zinc-100"
-          >
-            <Link2 size={18} />
           </a>
         </div>
 
