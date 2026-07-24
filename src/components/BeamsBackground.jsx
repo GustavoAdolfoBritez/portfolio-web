@@ -4,7 +4,7 @@
  */
 
 import { motion } from 'motion/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { cn } from '../lib/utils'
 
 const opacityMap = {
@@ -30,11 +30,35 @@ function createBeam(width, height) {
   }
 }
 
+const MOBILE_QUERY = '(max-width: 767px)'
+const MOBILE_FPS = 30
+
 export default function BeamsBackground({ className, intensity = 'medium' }) {
   const canvasRef = useRef(null)
   const beamsRef = useRef([])
   const animationFrameRef = useRef(0)
-  const MINIMUM_BEAMS = 20
+  const isMobileRef = useRef(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
+  useEffect(() => {
+    const mobileQuery = window.matchMedia(MOBILE_QUERY)
+    const reducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+    const syncState = () => {
+      setIsMobile(mobileQuery.matches)
+      setPrefersReducedMotion(reducedQuery.matches)
+    }
+    syncState()
+
+    mobileQuery.addEventListener('change', syncState)
+    reducedQuery.addEventListener('change', syncState)
+
+    return () => {
+      mobileQuery.removeEventListener('change', syncState)
+      reducedQuery.removeEventListener('change', syncState)
+    }
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -43,15 +67,25 @@ export default function BeamsBackground({ className, intensity = 'medium' }) {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
     const updateCanvasSize = () => {
-      const dpr = window.devicePixelRatio || 1
+      const isMobile = window.matchMedia(MOBILE_QUERY).matches
+      isMobileRef.current = isMobile
+
+      // Cap el device pixel ratio: en celulares de alta densidad (DPR 3)
+      // dibujar a resolución nativa multiplica por 9 la cantidad de píxeles.
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2)
       canvas.width = window.innerWidth * dpr
       canvas.height = window.innerHeight * dpr
       canvas.style.width = `${window.innerWidth}px`
       canvas.style.height = `${window.innerHeight}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
-      const totalBeams = MINIMUM_BEAMS * 1.5
+      const minimumBeams = isMobile ? 8 : 20
+      const totalBeams = Math.round(minimumBeams * 1.5)
       beamsRef.current = Array.from({ length: totalBeams }, () =>
         createBeam(window.innerWidth, window.innerHeight),
       )
@@ -93,31 +127,60 @@ export default function BeamsBackground({ className, intensity = 'medium' }) {
       ctx.restore()
     }
 
-    function animate() {
+    function renderFrame() {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-      ctx.filter = 'blur(35px)'
+      // El desenfoque se aplica por CSS sobre el <canvas> (GPU, una sola pasada)
+      // en vez de ctx.filter, que recalcula un blur por software en cada beam
+      // y en cada frame — muy costoso en navegadores móviles.
+      beamsRef.current.forEach((beam) => drawBeam(beam))
+    }
 
-      const totalBeams = beamsRef.current.length
-      beamsRef.current.forEach((beam, index) => {
-        beam.y -= beam.speed
-        beam.pulse += beam.pulseSpeed
+    let lastFrameTime = 0
 
-        if (beam.y + beam.length < -100) {
-          resetBeam(beam, index, totalBeams)
-        }
+    function animate(time) {
+      const targetFps = isMobileRef.current ? MOBILE_FPS : 60
+      const minFrameGap = 1000 / targetFps
 
-        drawBeam(beam)
-      })
+      if (time - lastFrameTime >= minFrameGap) {
+        lastFrameTime = time
+
+        const totalBeams = beamsRef.current.length
+        beamsRef.current.forEach((beam, index) => {
+          beam.y -= beam.speed
+          beam.pulse += beam.pulseSpeed
+
+          if (beam.y + beam.length < -100) {
+            resetBeam(beam, index, totalBeams)
+          }
+        })
+
+        renderFrame()
+      }
 
       animationFrameRef.current = requestAnimationFrame(animate)
     }
 
     updateCanvasSize()
     window.addEventListener('resize', updateCanvasSize)
-    animate()
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameRef.current)
+      } else if (!prefersReducedMotion) {
+        animationFrameRef.current = requestAnimationFrame(animate)
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    if (prefersReducedMotion) {
+      renderFrame()
+    } else {
+      animationFrameRef.current = requestAnimationFrame(animate)
+    }
 
     return () => {
       window.removeEventListener('resize', updateCanvasSize)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
@@ -135,19 +198,21 @@ export default function BeamsBackground({ className, intensity = 'medium' }) {
       <canvas
         className="absolute inset-0"
         ref={canvasRef}
-        style={{ filter: 'blur(15px)' }}
+        style={{ filter: `blur(${isMobile ? 18 : 24}px)` }}
       />
 
-      <motion.div
-        animate={{ opacity: [0.05, 0.15, 0.05] }}
-        className="absolute inset-0 bg-neutral-950/5"
-        style={{ backdropFilter: 'blur(50px)' }}
-        transition={{
-          duration: 10,
-          ease: 'easeInOut',
-          repeat: Number.POSITIVE_INFINITY,
-        }}
-      />
+      {!prefersReducedMotion && (
+        <motion.div
+          animate={{ opacity: [0.05, 0.15, 0.05] }}
+          className="absolute inset-0 bg-neutral-950/5"
+          style={{ backdropFilter: `blur(${isMobile ? 20 : 50}px)` }}
+          transition={{
+            duration: 10,
+            ease: 'easeInOut',
+            repeat: Number.POSITIVE_INFINITY,
+          }}
+        />
+      )}
     </div>
   )
 }
