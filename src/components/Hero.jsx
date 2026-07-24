@@ -46,6 +46,11 @@ export default function Hero() {
           phrases={site.heroRoles}
           className="mt-3 min-h-8 text-xl text-zinc-400 sm:min-h-9 sm:text-2xl md:text-3xl"
         />
+        {site.academicStatus && (
+          <p className="mt-1.5 text-xs font-medium text-zinc-500 sm:text-sm">
+            {site.academicStatus}
+          </p>
+        )}
         <p className="mt-4 max-w-lg text-sm text-zinc-400 sm:text-base">
           {site.heroDescription}
         </p>

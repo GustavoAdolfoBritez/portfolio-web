@@ -1,8 +1,9 @@
 export const site = {
   name: 'Gustavo Adolfo Britez',
   heroName: 'Gustavo Britez',
-  heroRoles: ['Ingeniero en Informática', 'Full-Stack Developer'],
-  role: 'Ingeniero en Informática & Full-Stack Developer',
+  heroRoles: ['Egresado en Ingeniería en Informática', 'Full-Stack Developer'],
+  role: 'Egresado en Ingeniería en Informática & Full-Stack Developer',
+  academicStatus: 'Tesis concluida — pendiente de defensa pública',
   specialization: 'React 19, Express 5, Node.js y PostgreSQL',
   availability: 'Disponible para oportunidades',
   heroDescription:
