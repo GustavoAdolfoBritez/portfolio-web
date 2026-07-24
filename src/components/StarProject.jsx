@@ -42,7 +42,10 @@ export default function StarProject() {
               />
             </div>
           )}
-          <div className="flex flex-wrap gap-1 border-b border-zinc-800 bg-zinc-900/50 p-2">
+          <div
+            className="grid gap-1 border-b border-zinc-800 bg-zinc-900/50 p-2 sm:flex sm:flex-wrap"
+            style={{ gridTemplateColumns: `repeat(${starProject.screenshots.length}, minmax(0, 1fr))` }}
+          >
             {starProject.screenshots.map((item) => (
               <button
                 key={item.id}
@@ -52,7 +55,7 @@ export default function StarProject() {
                   setImageError(false)
                 }}
                 aria-pressed={activeScreen === item.id}
-                className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                className={`min-w-0 rounded-md px-2 py-1.5 text-center text-xs leading-tight font-medium transition-colors sm:px-3 sm:text-sm ${
                   activeScreen === item.id
                     ? 'bg-zinc-800 text-zinc-100 shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-100'
