@@ -9,12 +9,10 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
-  overflow-x: hidden;
 }
 
 body {
   @apply bg-zinc-950 text-zinc-100 antialiased;
-  overflow-x: hidden;
 }
 
 @keyframes orbit-spin {
