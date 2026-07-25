@@ -14,15 +14,10 @@ export const site = {
   email: 'britezgustavo844@gmail.com',
   gmailHref:
     'https://mail.google.com/mail/?view=cm&fs=1&to=britezgustavo844@gmail.com',
-  phone: '(0981) 964-184',
-  phoneHref: 'tel:+595981964184',
-  whatsappHref: 'https://wa.me/595981964184',
   location: 'Asunción, Paraguay',
   github: 'https://github.com/GustavoAdolfoBritez',
   linkedin: 'https://www.linkedin.com/in/gustavo-britez',
   cvPath: '/cv-gustavo-adolfo-britez.pdf',
-  formspreeEndpoint:
-    import.meta.env.VITE_FORMSPREE_ENDPOINT ?? 'https://formspree.io/f/YOUR_FORM_ID',
 }
 
 export const starProject = {
