@@ -103,11 +103,10 @@ export const starProject = {
     'Bitácora inmutable (append-only) y cierre irreversible con bcrypt',
     'Procesamiento masivo atómico con SAVEPOINTs en PostgreSQL',
   ],
-  demoUrl: '#',
+  demoUrl: 'https://sistema-gestion-asistencia.vercel.app',
   demoLabel: 'Demo en vivo',
-  repoUrl: '#',
+  repoUrl: 'https://github.com/GustavoAdolfoBritez/sistema-gestion-asistencia',
   repoLabel: 'Repositorio',
-  repoNote: 'Solicitar acceso',
 }
 
 export const experience = {
