@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CheckCircle2, ExternalLink, Lock, Monitor } from 'lucide-react'
+import { CheckCircle2, ExternalLink, Info, Lock, Monitor } from 'lucide-react'
 import { ZoomableScreenshot } from './ImageLightbox'
 import ThemeToggle from './ThemeToggle'
 import { starProject } from '../data/site'
@@ -88,6 +88,11 @@ export default function StarProject() {
               </div>
             )}
           </div>
+
+          <p className="flex items-center justify-center gap-1.5 border-b border-zinc-800 bg-zinc-900/30 px-4 py-2 text-center text-xs text-zinc-500 sm:px-6">
+            <Info size={13} className="shrink-0" aria-hidden />
+            Los datos mostrados en las capturas son ficticios, solo con fines demostrativos.
+          </p>
 
           <div className="p-6 sm:p-8">
             <p className="text-zinc-400">{starProject.description}</p>
