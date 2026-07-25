@@ -68,7 +68,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-2.5 text-sm font-medium transition-colors hover:bg-white/5"
           >
             <Download size={16} />
-            Descargar CV (PDF)
+            Descargar CV
           </a>
         </div>
 
