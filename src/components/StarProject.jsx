@@ -134,7 +134,7 @@ export default function StarProject() {
                 href={isRepoPrivate ? '#contacto' : starProject.repoUrl}
                 target={isRepoPrivate ? undefined : '_blank'}
                 rel={isRepoPrivate ? undefined : 'noreferrer'}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-100"
+                className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-zinc-300"
               >
                 {isRepoPrivate ? <Lock size={16} /> : <ExternalLink size={16} />}
                 {starProject.repoLabel}
