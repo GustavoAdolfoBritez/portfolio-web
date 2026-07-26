@@ -43,8 +43,12 @@ export default function TypewriterRole({
 
   return (
     <p className={className} aria-live="polite">
-      <span>{text}</span>
-      <span className="ml-0.5 inline-block w-[2px] animate-pulse text-zinc-300">|</span>
+      {/* El cursor va como border-right del mismo span de texto (no un
+          elemento aparte) para que nunca quede "huérfano" en su propia
+          línea cuando el texto llega justo al borde en pantallas chicas. */}
+      <span className="animate-caret-blink border-r-2 border-zinc-300 pr-0.5">
+        {text}
+      </span>
     </p>
   )
 }

@@ -44,7 +44,7 @@ export default function Hero() {
         </h1>
         <TypewriterRole
           phrases={site.heroRoles}
-          className="mt-3 min-h-8 text-xl text-zinc-400 sm:min-h-9 sm:text-2xl md:text-3xl"
+          className="mt-3 min-h-14 text-xl text-zinc-400 sm:min-h-9 sm:text-2xl md:text-3xl"
         />
         {site.academicStatus && (
           <p className="mt-1.5 text-xs font-medium text-zinc-500 sm:text-sm">
