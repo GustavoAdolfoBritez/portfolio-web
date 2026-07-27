@@ -1,6 +1,6 @@
 # Gustavo Britez — Portfolio
 
-Portfolio personal de **Gustavo Adolfo Britez**, Full-Stack Developer especializado en React, Node.js y PostgreSQL. Construido como una SPA rápida, accesible y optimizada para mobile, con foco en performance real (no solo en el diseño).
+Portfolio personal de **Gustavo Adolfo Britez**, Desarrollador Front-End especializado en React y TypeScript, con bases sólidas de Back-End (Node.js, Express, PostgreSQL). Construido como una SPA rápida, accesible y optimizada para mobile, con foco en performance real (no solo en el diseño).
 
 🔗 **Demo en vivo:** [TU-DOMINIO-AQUI](https://TU-DOMINIO-AQUI) <!-- TODO: reemplazar por la URL pública real -->
 
@@ -12,7 +12,7 @@ Portfolio personal de **Gustavo Adolfo Britez**, Full-Stack Developer especializ
 - **Diseño responsive** de punta a punta, pensado mobile-first (navegación, tabs, órbitas de skills, etc.)
 - **Scroll-spy** en el header: detecta la sección activa mientras se scrollea y resalta el link correspondiente
 - **Fondo animado** con `<canvas>` (beams de luz) optimizado para no consumir batería/CPU de más en celulares
-- **Efecto typewriter** en el rol del hero (`Egresado en Ingeniería en Informática` / `Full-Stack Developer`)
+- **Efecto typewriter** en el rol del hero (`Egresado en Ingeniería en Informática` / `Desarrollador Front-End / Web`)
 - **Skills orbitando** en animación CSS (3 órbitas concéntricas) con radios que se recalculan según el tamaño real del contenedor, para no desbordar en pantallas chicas
 - **Proyecto destacado (tesis)** con capturas reales en modo claro/oscuro y zoom ampliado al hacer clic
 - **Accesibilidad**: respeta `prefers-reduced-motion` (desactiva animaciones pesadas si el usuario lo pidió a nivel sistema operativo)

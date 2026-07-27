@@ -1,13 +1,13 @@
 export const site = {
   name: 'Gustavo Adolfo Britez',
   heroName: 'Gustavo Britez',
-  heroRoles: ['Egresado en Ingeniería en Informática', 'Full-Stack Developer'],
-  role: 'Egresado en Ingeniería en Informática & Full-Stack Developer',
+  heroRoles: ['Egresado en Ingeniería en Informática', 'Desarrollador Front-End / Web'],
+  role: 'Egresado en Ingeniería en Informática & Desarrollador Front-End',
   academicStatus: 'Tesis concluida — pendiente de defensa pública',
-  specialization: 'React 19, Express 5, Node.js y PostgreSQL',
+  specialization: 'React 19, TypeScript y Node.js/Express',
   availability: 'Disponible para oportunidades',
   heroDescription:
-    'Construyo aplicaciones full-stack escalables y seguras con React, Node.js y PostgreSQL. Especializado en arquitectura enterprise, auditoría legal e integridad de datos.',
+    'Desarrollador Front-End especializado en React y TypeScript, con bases sólidas de arquitectura Back-End (Node.js, Express, PostgreSQL). Domino la integración cliente-servidor y estoy listo para escalar a roles Full-Stack.',
   avatarPath: '/avatar.webp',
   avatarSrcSet: '/avatar.webp 576w, /avatar@2x.webp 792w',
   avatarSizes: '(max-width: 640px) 128px, 160px',
@@ -110,18 +110,18 @@ export const experience = {
   role: 'Desarrollador Front-End',
   period: 'Oct — Dic 2025 · 340 hs',
   contributions: [
-    'Refactoricé módulos legados en Angular y React, reduciendo duplicación y optimizando UI.',
-    'Implementé lógica de IDs secuenciales en el cliente para prevenir registros duplicados.',
-    'Diseñé interacciones intuitivas con controles visibles y comportamientos dinámicos en filas.',
-    'Utilicé GitLab para branching, code reviews, documentación y merge requests.',
+    'Desarrollé módulos SPA dinámicos (Productos, Categorías y Usuarios) con React, aplicando Bootstrap para una interfaz unificada y responsive.',
+    'Implementé arquitectura de formularios dinámicos y validaciones con TypeScript y el hook useForm, optimizando la captura de datos y el manejo de errores.',
+    'Refactoricé componentes de la interfaz mediante interfaces y props para mejorar su reutilización, reduciendo código duplicado y puliendo la UX/UI.',
+    'Diagnostiqué y corregí fallas en el flujo de navegación, participando del ciclo de vida del código con control de versiones en Git/GitLab.',
   ],
 }
 
 export const techStack = {
-  Frontend: ['React 19', 'Angular', 'TailwindCSS', 'TypeScript', 'Vite'],
+  Frontend: ['React 19', 'TypeScript', 'HTML5/CSS3', 'TailwindCSS', 'Bootstrap', 'Angular (básico)'],
   Backend: ['Node.js', 'Express 5', 'REST APIs', 'JWT', 'Zod'],
-  'Base de Datos': ['PostgreSQL', 'Supabase', 'Knex.js', 'SQL'],
-  Herramientas: ['Docker', 'Git', 'GitLab', 'Vitest', 'Knip'],
+  'Base de Datos': ['PostgreSQL', 'Supabase', 'MySQL', 'Knex.js'],
+  Herramientas: ['Git', 'GitLab', 'Docker', 'Vite', 'Vitest', 'Knip'],
 }
 
 /** Icon slugs from simpleicons.org — used by OrbitingSkills */
