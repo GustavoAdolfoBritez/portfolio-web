@@ -37,6 +37,8 @@ El fondo animado (`BeamsBackground`) fue optimizado específicamente para mobile
 | Iconos          | Lucide React, Simple Icons (CDN)               |
 | Optimización de imágenes | Sharp (script de build para generar WebP @1x/@2x) |
 | Linter          | Oxlint                                         |
+| Tests           | Vitest + Testing Library                       |
+| CI              | GitHub Actions (lint, test, build)             |
 | Deploy          | Vercel                                         |
 
 ## 📁 Estructura del proyecto
@@ -84,8 +86,20 @@ Otros scripts disponibles:
 npm run build            # Build de producción
 npm run preview          # Previsualizar el build localmente
 npm run lint              # Linter (oxlint)
+npm run test              # Smoke tests (Vitest)
+npm run test:watch        # Tests en modo watch
 npm run optimize:images   # Genera versiones WebP (1x/2x) de las capturas del proyecto
 ```
+
+## ✅ Calidad y CI
+
+Cada push o pull request a `main` ejecuta automáticamente:
+
+- `npm run lint` — reglas de Oxlint (React hooks, exports, etc.)
+- `npm run test:ci` — smoke tests de renderizado, datos del sitio y utilidades
+- `npm run build` — verificación del build de producción
+
+No se requieren variables de entorno para correr el proyecto; ver `.env.example` como referencia.
 
 ## 📦 Deploy
 
